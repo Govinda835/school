@@ -4,15 +4,15 @@ const blogSchema = new mongoose.Schema({
     Name : {
         type : String,
         require : true,
-        unique : true,
     },
     Class : {
-        type : Number,
+        type : String,
         require : true,
     },
     rollNo : {
         type : Number,
         require : true,
+        unique : true
     },
 
 
