@@ -1,20 +1,19 @@
 const mongoose = require("mongoose")
 const { type } = require("os")
+const { stringify } = require("querystring")
 const blogSchema = new mongoose.Schema({
     Name : {
         type : String,
-        require : true,
     },
     Class : {
         type : String,
-        require : true,
     },
     rollNo : {
         type : Number,
-        require : true,
-        unique : true
     },
-
+    image : {
+        type : String,
+    }
 
 })
 
