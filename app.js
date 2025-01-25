@@ -1,5 +1,6 @@
 require("dotenv").config()
 const express = require("express")
+const fs = require("fs")
 const { connectToDatabase } = require("./database")
 const { Blog } = require("./model/blogModel")
 
@@ -62,18 +63,28 @@ app.get("/blog/:id",async (req,res)=>{
 
 app.delete("/blog/:id",async (req,res)=>{
     const id = req.params.id
-    const blog = await Blog.findByIdAndDelete(id)
-    if(!blog)
-    {
-        return res.status(400).json({
-            message : "please enter the correct id..."
-        })
-    }
+    
+    const blog = await Blog.findById(id)
+    const imageName = blog.image
+    fs.unlink("storage/" + imageName, (err)=>{
+        if(err)
+        {
+            console.log("image not deleted .... ")
+        }
+        else {
+            console.log("image deleted successfully.... ")
+        }
+    })
+    await Blog.findByIdAndDelete(id)
     res.status(200).json({
-        message : "single student record deleted successfully...",  
+        message : "data deleted successfully... "
     })
     
 })
+
+
+
+
 
 
 app.listen(process.env.PORT, ()=>{
